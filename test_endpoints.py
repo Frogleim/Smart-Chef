@@ -19,7 +19,6 @@ def test_check_status_code():
     assert data["Message"] == "Success"
 
     # You might want to further validate the 'Data' content based on your application's logic
-    # For example, check if 'Data' is a list of recommended recipes
 
 
 def test_output():
