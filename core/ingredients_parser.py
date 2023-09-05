@@ -39,6 +39,7 @@ def ingredient_parser(ingreds):
 if __name__ == "__main__":
     recipe_df = pd.read_csv('./ml_models/input/df_recipes.csv')
     recipe_df['ingredients_parsed'] = recipe_df['ingredients'].apply(lambda x: ingredient_parser(x))
+    print(recipe_df['ingredients_parsed'])
     df = recipe_df[['recipe_name', 'ingredients_parsed', 'ingredients', 'recipe_urls']]
     df = recipe_df.dropna()
     m = df.recipe_name.str.endswith('Recipe - Allrecipes.com')
