@@ -1,6 +1,6 @@
 import pandas as pd
 import nltk
-from config import measures, words_to_remove
+from .config import measures, words_to_remove
 import string
 import ast
 import re
@@ -8,9 +8,6 @@ import unidecode
 # nltk.download('wordnet')
 # nltk.download('omw-1.4')
 from nltk.stem import WordNetLemmatizer
-from get_images import get_rec_description
-from nltk.corpus import wordnet
-from collections import Counter
 
 
 def ingredient_parser(ingreds):
