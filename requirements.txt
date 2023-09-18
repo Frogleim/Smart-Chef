@@ -7,3 +7,4 @@ uvicorn
 Unidecode
 httpx
 requests
+bs4
