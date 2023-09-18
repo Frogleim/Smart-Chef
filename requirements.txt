@@ -6,3 +6,4 @@ scikit-learn
 uvicorn
 Unidecode
 httpx
+requests
