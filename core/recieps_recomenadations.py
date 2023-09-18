@@ -3,11 +3,23 @@ from sklearn.metrics.pairwise import cosine_similarity
 import pickle
 import unidecode, ast
 from .ingredients_parser import ingredient_parser
-from . import config
+import os
+
+
+def transform_path():
+    current_directory = os.path.dirname(__file__)
+    parent_directory = os.path.abspath(os.path.join(current_directory, os.pardir))
+    # data_directory = os.path.join(parent_directory, 'data')
+    files_path = os.path.join(parent_directory, 'core\\ml_models\\input')
+
+    # files_in_data_directory = os.listdir(data_directory)
+    print(files_path)
+    return files_path
 
 
 def get_recommendations(N, scores):
-    df_recipes = pd.read_csv(config.PARSED_DF)
+    path = transform_path()
+    df_recipes = pd.read_csv(f'{path}\\df_parsed.csv')
     top = sorted(range(len(scores)), key=lambda i: scores[i], reverse=True)[:N]
     recommendation = pd.DataFrame(columns=['recipe', 'ingredients', 'score', 'url'])
     count = 0
@@ -38,10 +50,11 @@ def title_parser(title):
 
 
 def RecSys(ingredients, N=8):
-    with open(config.ENCODING_TF, 'rb') as f:
+    path = transform_path()
+    with open(f'{path}\\tfidf_encodings.pkl', 'rb') as f:
         tfidf_encodings = pickle.load(f)
 
-    with open(config.TFK, "rb") as f:
+    with open(f'{path}\\tfidf.pkl', "rb") as f:
         tfidf = pickle.load(f)
 
     try:
@@ -71,3 +84,6 @@ if __name__ == '__main__':
     test_ingredients = "pasta, tomato, onion"
     recs = RecSys(test_ingredients)
     print(recs)
+    # path = transform_path()
+    # new_path = f'{path}\\df_recipes.csv'
+    # print(new_path)

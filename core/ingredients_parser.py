@@ -5,8 +5,6 @@ import string
 import ast
 import re
 import unidecode
-# nltk.download('wordnet')
-# nltk.download('omw-1.4')
 from nltk.stem import WordNetLemmatizer
 
 
@@ -35,14 +33,25 @@ def ingredient_parser(ingreds):
 
 
 if __name__ == "__main__":
-    recipe_df = pd.read_csv('./ml_models/input/df_recipes.csv')
-    recipe_df['ingredients_parsed'] = recipe_df['ingredients'].apply(lambda x: ingredient_parser(x))
+    # recipe_df = pd.read_csv('./ml_models/input/df_recipes.csv')
+    # recipe_df['ingredients_parsed'] = recipe_df['ingredients'].apply(lambda x: ingredient_parser(x))
+    #
+    # df = recipe_df[['recipe_name', 'ingredients_parsed', 'ingredients', 'recipe_urls']]
+    # df = recipe_df.dropna()
+    #
+    # m = df.recipe_name.str.endswith('Recipe - Allrecipes.com')
+    #
+    # df['recipe_name'].loc[m] = df.recipe_name.loc[m].str[:-23]
+    # print(df)
+    import json
+    import os
 
-    df = recipe_df[['recipe_name', 'ingredients_parsed', 'ingredients', 'recipe_urls']]
-    df = recipe_df.dropna()
+    current_directory = os.path.dirname(__file__)
+    parent_directory = os.path.abspath(os.path.join(current_directory, os.pardir))
+    # data_directory = os.path.join(parent_directory, 'data')
+    files_path = os.path.join(parent_directory, 'ml_models\\input')
 
-    m = df.recipe_name.str.endswith('Recipe - Allrecipes.com')
+    # files_in_data_directory = os.listdir(data_directory)
+    print(files_path)
 
-    df['recipe_name'].loc[m] = df.recipe_name.loc[m].str[:-23]
-    print(df)
-
+    # print(files_path)

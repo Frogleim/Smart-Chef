@@ -39,10 +39,3 @@ words_to_remove = ['fresh', 'oil', 'a', 'red', 'bunch', 'and', 'clove', 'or', 'l
                    'asafoetida', 'mild', 'dash', 'boiling']
 
 
-ENCODING_TF = r'../ml_models/tfidf_encodings.pkl'
-TFK = r'../ml_models/tfidf.pkl'
-RECIPES_DF = r'../ml_models/input/df_recipes.csv'
-PARSED_DF = r'../ml_models/input/df_parsed.csv'
-
-
-
