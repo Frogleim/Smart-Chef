@@ -12,6 +12,7 @@ def get_recommendations(N, scores):
     recommendation = pd.DataFrame(columns=['recipe', 'ingredients', 'score', 'url'])
     count = 0
     for i in top:
+        print(i)
         recommendation.at[count, 'recipe'] = title_parser(df_recipes['recipe_name'][i])
         recommendation.at[count, 'ingredients'] = ingredient_parser_final(df_recipes['ingredients'][i])
         recommendation.at[count, 'url'] = df_recipes['recipe_urls'][i]
@@ -51,7 +52,6 @@ def RecSys(ingredients, N=8):
     ingredients_tfidf = tfidf.transform([ingredients_parsed])
     cos_sim = map(lambda x: cosine_similarity(ingredients_tfidf, x), tfidf_encodings)
     scores = list(cos_sim)
-    print(cos_sim)
     recommendations = get_recommendations(N, scores)
     response = {}
     rec = []
@@ -71,4 +71,3 @@ if __name__ == '__main__':
     test_ingredients = "pasta, tomato, onion"
     recs = RecSys(test_ingredients)
     print(recs)
-    print(len(recs))

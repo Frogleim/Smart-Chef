@@ -1,6 +1,6 @@
 import pandas as pd
 import nltk
-from .config import measures, words_to_remove
+from config import measures, words_to_remove
 import string
 import ast
 import re
@@ -8,6 +8,7 @@ import unidecode
 # nltk.download('wordnet')
 # nltk.download('omw-1.4')
 from nltk.stem import WordNetLemmatizer
+from get_images import get_rec_description
 from nltk.corpus import wordnet
 from collections import Counter
 
@@ -39,9 +40,12 @@ def ingredient_parser(ingreds):
 if __name__ == "__main__":
     recipe_df = pd.read_csv('./ml_models/input/df_recipes.csv')
     recipe_df['ingredients_parsed'] = recipe_df['ingredients'].apply(lambda x: ingredient_parser(x))
-    print(recipe_df['ingredients_parsed'])
+
     df = recipe_df[['recipe_name', 'ingredients_parsed', 'ingredients', 'recipe_urls']]
     df = recipe_df.dropna()
+
     m = df.recipe_name.str.endswith('Recipe - Allrecipes.com')
+
     df['recipe_name'].loc[m] = df.recipe_name.loc[m].str[:-23]
-    df.to_csv('./ml_models/input/df_parsed.csv', index=False)
+    print(df)
+
