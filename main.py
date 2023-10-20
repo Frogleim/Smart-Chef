@@ -14,6 +14,7 @@ app = FastAPI()
 @app.get('/get_recipes/{ingredients}')
 def get_recipes(ingredients: str):
     recipes = recieps_recomenadations.RecSys(ingredients)
+    print(recipes[0]['url'])
     return {'Message': "Success", "Data": recipes}
 
 
