@@ -6,16 +6,16 @@ import os
 
 def read_csv_file():
     current_directory = os.path.dirname(os.path.abspath(__file__))
-    files_path = os.path.join(current_directory, 'ml_models\\input')
-    file_path = f'{files_path}\\df_recipes.csv'
+    files_path = os.path.join(current_directory, 'ml_models/input')
+    file_path = f'{files_path}/df_recipes.csv'
     df = pd.read_csv(file_path)
     return df
 
 
 def read_images_csv():
     current_directory = os.path.dirname(os.path.abspath(__file__))
-    files_path = os.path.join(current_directory, 'ml_models\\input')
-    file_path = f"{files_path}\\update_recipe.csv"
+    files_path = os.path.join(current_directory, 'ml_models/input')
+    file_path = f"{files_path}/update_recipe.csv"
     images_df = pd.read_csv(file_path)
     return images_df
 
@@ -59,3 +59,7 @@ if __name__ == "__main__":
     import os
 
     get_rec_description(rec_url='https://www.allrecipes.com/recipe/158899/basic-spicy-tomato-sauce/')
+    current_directory = os.path.dirname(os.path.abspath(__file__))
+    files_path = os.path.join(current_directory, 'ml_models/input')
+    file_path = f'{files_path}/df_recipes.csv'
+    print(file_path)
