@@ -66,6 +66,7 @@ def RecSys(ingredients, N=8):
     cos_sim = map(lambda x: cosine_similarity(ingredients_tfidf, x), tfidf_encodings)
     scores = list(cos_sim)
     recommendations = get_recommendations(N, scores)
+    print(recommendations.iterrows())
     response = {}
     rec = []
     count = 0

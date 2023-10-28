@@ -20,10 +20,38 @@ def read_images_csv():
     return images_df
 
 
+def get_rec_images(rec_url=None):
+    df = read_csv_file()
+    data_list = []
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                      "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36",
+    }
+    for df_urls in df['recipe_urls']:
+        r = requests.get(df_urls, headers=headers)
+        soup = BS(r.content, "html.parser")
+        main_div = soup.find_all('div', class_='loc article-content')
+        for items in main_div:
+            try:
+                images = items.find('img')['src']
+                data = {
+                    'url': rec_url,
+                    'images url': images,
+                }
+                data_list.append(data)
+                print('Success')
+            except Exception as e:
+                print(e)
+    new_df = pd.DataFrame(data_list)
+    df = pd.concat([df, new_df], axis=1)
+    df.to_csv('./updated.csv')
+
+    return data_list
+
+
 def get_rec_description(rec_url=None):
     df = read_csv_file()
     data_list = []
-    # for rec_urls in df['recipe_urls'][859:]:
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                       "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36",
@@ -33,7 +61,7 @@ def get_rec_description(rec_url=None):
     main_div = soup.find_all('div', class_='loc article-content')
     for items in main_div:
         try:
-            images = soup.find('img')['src']
+            images = items.find('img')['src']
             step_1 = items.find('p', {'id': "mntl-sc-block_2-0-2"}).text.strip()
             try:
                 step_2 = items.find('p', {'id': "mntl-sc-block_2-0-6"}).text.strip()
@@ -49,10 +77,8 @@ def get_rec_description(rec_url=None):
             data_list.append(data)
         except Exception as e:
             print(e)
-    new_df = pd.DataFrame(data_list)
-    new_df.to_csv('./update_recipe.csv')
-    return data_list
 
+    return data_list
 
 
 if __name__ == "__main__":
@@ -63,3 +89,4 @@ if __name__ == "__main__":
     files_path = os.path.join(current_directory, 'ml_models/input')
     file_path = f'{files_path}/df_recipes.csv'
     print(file_path)
+    get_rec_images()

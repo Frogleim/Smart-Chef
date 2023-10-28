@@ -49,9 +49,12 @@ if __name__ == "__main__":
     current_directory = os.path.dirname(__file__)
     parent_directory = os.path.abspath(os.path.join(current_directory, os.pardir))
     # data_directory = os.path.join(parent_directory, 'data')
-    files_path = os.path.join(parent_directory, 'ml_models\\input')
+    files_path = os.path.join(parent_directory, 'core\\ml_models\\input')
+    recipe_df = pd.read_csv(f'{files_path}\\df_recipes.csv')
+
 
     # files_in_data_directory = os.listdir(data_directory)
-    print(files_path)
+    new_df = recipe_df[857:]
+    new_df.to_csv(f'{files_path}\\df_recipes.csv')
 
     # print(files_path)

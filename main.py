@@ -13,6 +13,8 @@ app = FastAPI()
 
 @app.get('/get_recipes/{ingredients}')
 def get_recipes(ingredients: str):
+    if ingredients is None:
+        raise HTTPException(status_code=400, detail='Please enter ingredients')
     recipes = recieps_recomenadations.RecSys(ingredients)
     print(recipes[0]['url'])
     return {'Message': "Success", "Data": recipes}
